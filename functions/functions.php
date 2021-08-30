@@ -368,7 +368,7 @@
 
                 // check remember input checkbox checked or not
                 if($remember == 'on'){
-                    setcookie('email', $email, time() + 60);
+                    setcookie('email', $email, time() + 60 * 60 * 24);
                 }
 
                 $_SESSION['email'] = $email;
