@@ -66,6 +66,32 @@
     }
 
 
+    // Create username exists function, this function check username already database has or not
+    function usernameExists($username){
+
+        $sql = "SELECT id FROM users WHERE username = '$username'";
+        $result = query($sql);
+        if(rowCount($result) == 1){
+            return true;
+        }else {
+            return false;
+        }
+
+    }
+
+
+    // Create email exists function, this function check email already database has or not
+    function emailExists($email){
+
+        $sql = "SELECT id FROM users WHERE email = '$email'";
+        $result = query($sql);
+        if(rowCount($result) == 1){
+            return true;
+        }else {
+            return false;
+        }
+
+    }
 
 
     //==================== Create Validation Functions =====================//
@@ -133,10 +159,24 @@
 
             }
 
+            // check username already has or not into database
+            if(usernameExists($username)){
+
+                $errors[] = "Sorry that username already been taken!";
+
+            }
+
             // check email more than 20 or not
             if(strlen($email) > $max){
 
-                $errors[] = "Your email cannot be more than {$max} characters";
+                $errors[] = "Your email cannot be less than {$max} characters";
+
+            }
+
+            // check username already has or not into database
+            if(emailExists($email)){
+
+                $errors[] = "Sorry that email already is registered";
 
             }
 
