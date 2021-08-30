@@ -309,8 +309,9 @@
 
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-            $email      = escapeString($_POST['email']);
-            $password   = escapeString($_POST['password']);
+            $email      = clean($_POST['email']);
+            $password   = clean($_POST['password']);
+            $remember   = clean(isset($_POST['remember']));
 
             // check email has or not
             if(empty($email)) {
@@ -335,7 +336,7 @@
 
             }else {
 
-               if(loginUser($email, $password)){
+               if(loginUser($email, $password, $remember)){
                    
                     redirect("admin.php");
 
@@ -353,7 +354,7 @@
 
 
     // Create login user function
-    function loginUser($email, $password){
+    function loginUser($email, $password, $remember){
 
         $sql = "SELECT password, id FROM users WHERE email = '".escapeString($email)."' AND active = 1 ";
         $result = query($sql);
@@ -364,6 +365,11 @@
             $db_password = $row['password'];
 
             if(md5($password) == $db_password){
+
+                // check remember input checkbox checked or not
+                if($remember == 'on'){
+                    setcookie('email', $email, time() + 60);
+                }
 
                 $_SESSION['email'] = $email;
                 return true;
@@ -384,14 +390,14 @@
 
     // Create user logged in function
     function loggedIn(){
-        if(isset($_SESSION['email'])){
+        if(isset($_SESSION['email']) || isset($_COOKIE['email'])){
 
             return true;
 
         }else {
 
             return false;
-            
+
         }
     } 
 
