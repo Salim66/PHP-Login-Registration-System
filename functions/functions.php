@@ -198,6 +198,15 @@
 
                 }
 
+            }else {
+                    
+                // call to register user function and pass the parameters
+                if(registerUser($first_name, $last_name, $username, $email, $password)){
+                    
+                    echo "User Registered :) ";
+
+                }
+
             }
 
 
@@ -224,11 +233,15 @@
             return false;
         }else {
 
-            $password   = md5($password);
-            $validation = md5($username + microtime());
+            $password        = md5($password);
+            $validation_code = md5($username . microtime());
 
-            $sql = "INSERT INTO users(first_name, last_name, username, email, password, validation_code, active)";
+            $sql  = "INSERT INTO users(first_name, last_name, username, email, password, validation_code, active)";
+            $sql .= " VALUES('$first_name', '$last_name', '$username', '$email', '$password', '$validation_code', 0)";
+            $result = query($sql);
+            confirm($result);
 
+            return true;
         }
 
     }
