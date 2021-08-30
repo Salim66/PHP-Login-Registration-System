@@ -207,6 +207,33 @@
     }
 
 
+    // Create user registration function
+    function registerUser($first_name, $last_name, $username, $email, $password){
+
+        // escape variable
+        $first_name     = escapeString($first_name);
+        $last_name      = escapeString($last_name);
+        $username       = escapeString($username);
+        $email          = escapeString($email);
+        $password       = escapeString($password);
+
+
+        if(usernameExists($username)){
+            return false;
+        }else if(emailExists($email)){
+            return false;
+        }else {
+
+            $password   = md5($password);
+            $validation = md5($username + microtime());
+
+            $sql = "INSERT INTO users(first_name, last_name, username, email, password, validation_code, active)";
+
+        }
+
+    }
+
+
 
 
 ?>
