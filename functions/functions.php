@@ -413,7 +413,15 @@
 
                 if(emailExists($email)){
 
-                    $validation_code = md5($email, microtime());
+                    $validation_code = md5($email . microtime());
+
+                    // set cookie for reset password perpose
+                    setcookie('temp_access_code', $validation_code, time() + 60);
+
+                    // update validation code 
+                    $sql    = "UPDATE users SET validation_code = '".escapeString($validation_code)."' WHERE email = '".escapeString($email)."' ";
+                    $result = query($sql);
+                    confirm($result);
 
                     $subject    = "Please reset your password";
                     $message    = "Here is your password reset code {$validation_code}
@@ -421,8 +429,14 @@
                     ";
                     $headers    = "From: salimhasanriad@gmail.com";
 
-                    sendMail($email, $subject, $message, $headers);
+                    if(sendMail($email, $subject, $message, $headers)){
 
+                    }else {
+                        echo validationErrors("Email could not be send!");
+                    }
+
+                }else {
+                    echo validationErrors("This email does not exists!");
                 }
 
             }
