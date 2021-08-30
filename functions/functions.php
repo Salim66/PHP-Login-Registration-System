@@ -252,7 +252,7 @@
             // mail setup information
             $subject = "Activate Account";
             $msg       = "Please click the link below to active your account
-            http://localhost:8080/login/activate.php?email=$email&code=$validation_code
+            http://localhost:8080/php-projects/login/activate.php?email=$email&code=$validation_code
             ";
             $headers = "From: salimhasanriad@gmail.com";
 
@@ -263,6 +263,31 @@
 
     }
 
+
+    // Create user active function
+    function activeUser(){
+
+        if(isset($_GET['email'])){
+
+            $email           = clean($_GET['email']);
+            $validation_code = clean($_GET['code']);
+
+            $sql    = "SELECT * FROM users WHERE email = '".escapeString($_GET['email'])."' AND validation_code = '".$_GET['code']."' ";
+            $result = query($sql);
+            confirm($result);
+
+            if(rowCount($result) == 1){
+
+
+            }else {
+
+                echo '<p class="bg-success">Your account has been activated, please login.</p>';
+
+            }
+
+        }
+
+    } 
 
 
 
