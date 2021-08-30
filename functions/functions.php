@@ -61,6 +61,13 @@
 
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
+            // some property
+            $errors = [];
+
+            $min = 3;
+            $max = 20;
+
+            // grab form value
             $first_name         = clean($_POST['first_name']);
             $last_name          = clean($_POST['last_name']);
             $username           = clean($_POST['username']);
@@ -68,6 +75,30 @@
             $password           = clean($_POST['password']);
             $confirm_password   = clean($_POST['confirm_password']);
 
+
+            // check first name less than 3 or not
+            if(strlen($first_name) < $min){
+
+                $errors[] = "Your first name cannot be less than {$min} characters";
+
+            }
+
+            // check last name less than 3 or not
+            if(strlen($last_name) < $min){
+
+                $errors[] = "Your last name cannot be less than {$min} characters";
+
+            }
+
+
+            // check errors array variable has or not than loop the message and show
+            if(!empty($errors)){
+
+                foreach($errors as $error){
+                    echo $error;
+                }
+
+            }
 
 
 
