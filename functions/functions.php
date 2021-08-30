@@ -83,10 +83,38 @@
 
             }
 
+            // check first name more than 20 or not
+            if(strlen($first_name) > $max){
+
+                $errors[] = "Your first name cannot be more than {$max} characters";
+
+            }
+
             // check last name less than 3 or not
             if(strlen($last_name) < $min){
 
                 $errors[] = "Your last name cannot be less than {$min} characters";
+
+            }
+
+            // check first name more than 20 or not
+            if(strlen($last_name) > $max){
+
+                $errors[] = "Your last name cannot be more than {$max} characters";
+
+            }
+
+            // check usernfame lass than 3 or not
+            if(strlen($username) < 3){
+
+                $errors[] = "Your username cannot be less than {$min} characters";
+
+            }
+
+            // check username more than 20 or not
+            if(strlen($username) > $max){
+
+                $errors[] = "Your username cannot be more than {$max} characters";
 
             }
 
@@ -95,7 +123,18 @@
             if(!empty($errors)){
 
                 foreach($errors as $error){
-                    echo $error;
+                   
+                    $message = <<<DELIMETER
+
+                                    <div class="alert alert-danger alert-dismissable">
+                                        <button class="close" data-dismiss="alert">&times;</button>
+                                        <strong>Warning!</strong> $error
+                                    </div>
+
+                                DELIMETER;
+
+                    echo $message;
+
                 }
 
             }
