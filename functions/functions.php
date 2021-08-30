@@ -49,6 +49,21 @@
     }
 
 
+    // Create form validation error
+    function validationErrors($error_message){
+
+        $message = <<<DELIMETER
+
+                        <div class="alert alert-danger alert-dismissable">
+                            <button class="close" data-dismiss="alert">&times;</button>
+                            <strong>Warning!</strong> $error_message
+                        </div>
+
+                    DELIMETER;
+
+        echo $message;
+
+    }
 
 
 
@@ -118,22 +133,28 @@
 
             }
 
+            // check email more than 20 or not
+            if(strlen($email) > $max){
 
-            // check errors array variable has or not than loop the message and show
+                $errors[] = "Your email cannot be more than {$max} characters";
+
+            }
+
+            // check password and confirm password is not match
+            if($password !== $confirm_password){
+
+                $errors[] = "Your password and confirm password do not match";
+
+            }
+
+
+            // check errors array variable has or not than loop the errors and show message
             if(!empty($errors)){
 
                 foreach($errors as $error){
                    
-                    $message = <<<DELIMETER
-
-                                    <div class="alert alert-danger alert-dismissable">
-                                        <button class="close" data-dismiss="alert">&times;</button>
-                                        <strong>Warning!</strong> $error
-                                    </div>
-
-                                DELIMETER;
-
-                    echo $message;
+                    // code refactor
+                    echo validationErrors($error);
 
                 }
 
