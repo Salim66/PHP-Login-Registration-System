@@ -335,9 +335,46 @@
 
             }else {
 
-                echo "No Errors";
+               if(loginUser($email, $password)){
+                   
+                    redirect("admin.php");
+
+               }else {
+
+                    echo validationErrors("Your credentials do not correct!");
+
+               }
 
             }
+
+        }
+
+    }
+
+
+    // Create login user function
+    function loginUser($email, $password){
+
+        $sql = "SELECT password, id FROM users WHERE email = '".escapeString($email)."' AND active = 1 ";
+        $result = query($sql);
+
+        if(rowCount($result) == 1){
+
+            $row = fetchArray($result);
+            $db_password = $row['password'];
+
+            if(md5($password) == $db_password){
+
+                return true;
+
+            }else {
+                return false;
+            }
+
+        
+        }else {
+
+            return false;
 
         }
 
