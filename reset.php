@@ -39,6 +39,7 @@
 												<input type="submit" name="reset-password-submit" id="reset-password-submit" tabindex="4" class="form-control btn btn-register" value="Reset Password">
 											</div>
 										</div>
+										<input type="hidden" class="hide" name="token" id="token" value="<?php echo tokenGenerator(); ?>">
 									</div>
 								</form>
 							</div>

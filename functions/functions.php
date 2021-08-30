@@ -407,7 +407,7 @@
 
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-            if(isset($_SESSION['token']) && $_POST['token'] == $_SESSION['token']){
+            if(isset($_SESSION['token']) && $_POST['token'] === $_SESSION['token']){
                 
                 $email = clean($_POST['email']);
 
@@ -479,7 +479,7 @@
                         // check user has or not 
                         if(rowCount($result) == 1){
 
-                            setcookie('temp_access_code', $validation_code, time() + 300);
+                            setcookie('temp_access_code', $validation_code, time() + 900);
                             redirect("reset.php?email={$email}&code={$validation_code}");
 
                         }else {
@@ -507,10 +507,22 @@
 
         if($_COOKIE['temp_access_code']){
 
-            if(isset($_SESSION['token']) && $_POST['token'] == $_SESSION['token']){
+            if(isset($_GET['email']) && isset($_GET['code'])){
+            
+                if(isset($_SESSION['token']) && isset($_POST['token'])){
+                 
+                    if($_POST['token'] === $_SESSION['token']){
+          
+                        if($_POST['password'] === $_POST['confirm_password']){
 
-                if(isset($_GET['email']) && isset($_GET['code'])){
+                            // $password = md5($_POST['password']);
 
+                            // $sql = "UPDATE users SET password = '".escapeString($password)."' WHERE email = '".escapeString($_GET['email'])."' ";
+
+                         
+                        }
+
+                    }
                     
         
                 }
