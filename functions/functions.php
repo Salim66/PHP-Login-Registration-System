@@ -455,7 +455,7 @@
 
         if(isset($_COOKIE['temp_access_code'])){
 
-            if($_SERVER['REQUEST_METHOD'] == "GET"){
+            if($_SERVER['REQUEST_METHOD'] == "GET" || $_SERVER['REQUEST_METHOD'] == 'POST'){
 
                 if(!isset($_GET['email']) && !isset($_GET['code'])){
 
@@ -466,9 +466,9 @@
                     redirect('index.php');
                 
                 }else {
-
+                    // echo 'Getting post from form';
                     if(isset($_POST['code'])){
-                    
+                     
                         $validation_code    = clean($_POST['code']);
                         $email              = clean($_GET['email']);
 
