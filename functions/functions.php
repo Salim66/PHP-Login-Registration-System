@@ -408,7 +408,23 @@
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
             if(isset($_SESSION['token']) && $_POST['token'] == $_SESSION['token']){
-                echo "it's work";
+                
+                $email = clean($_POST['email']);
+
+                if(emailExists($email)){
+
+                    $validation_code = md5($email, microtime());
+
+                    $subject    = "Please reset your password";
+                    $message    = "Here is your password reset code {$validation_code}
+                    Click here to reset your password http://localhost:8080/php-projects/login/code.php?email={$email}&code={$validation_code}
+                    ";
+                    $headers    = "From: salimhasanriad@gmail.com";
+
+                    sendMail($email, $subject, $message, $headers);
+
+                }
+
             }
 
         }
