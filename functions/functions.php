@@ -505,10 +505,21 @@
     // Create password reset function 
     function passwordReset(){
 
-        if(isset($_GET['email']) && isset($_GET['code'])){
+        if($_COOKIE['temp_access_code']){
 
-            echo 'It is works';
+            if(isset($_SESSION['token']) && $_POST['token'] == $_SESSION['token']){
 
+                if(isset($_GET['email']) && isset($_GET['code'])){
+
+                    
+        
+                }
+
+            }
+
+        }else {
+            setMessage('<p class="bg-danger text-center">Sorry your time has been expired!</p>');
+            redirect("recover.php");
         }
 
     }
