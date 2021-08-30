@@ -515,11 +515,19 @@
           
                         if($_POST['password'] === $_POST['confirm_password']){
 
-                            // $password = md5($_POST['password']);
+                            $update_password = md5($_POST['password']);
 
-                            // $sql = "UPDATE users SET password = '".escapeString($password)."' WHERE email = '".escapeString($_GET['email'])."' ";
-
+                            $sql    = "UPDATE users SET password = '".escapeString($update_password)."', validation_code = 0 WHERE email = '".escapeString($_GET['email'])."' ";
+                            $result = query($sql);
+                            confirm($result);
+                            
+                            setMessage('<p class="bg-success text-center">Your password has been updated, please login.</p>');
+                            redirect("login.php");
                          
+                        }else {
+
+
+                            
                         }
 
                     }
