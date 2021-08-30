@@ -43,7 +43,7 @@
 
 											</div>
 										</div>
-										<input type="hidden" class="hide" name="token" id="token" value="">
+										<input type="hidden" class="hide" name="token" id="token" value="<?php echo tokenGenerator(); ?>">
 									</form>
 								</div>
 							</div>

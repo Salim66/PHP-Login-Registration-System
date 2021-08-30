@@ -3,7 +3,8 @@
 <div class="container">
 
 	<div class="row">
-
+	<?php displayMessage(); ?>
+	<?php passwordReset() ?>
 	</div>
     	<div class="row">
 			<div class="col-md-6 col-md-offset-3">

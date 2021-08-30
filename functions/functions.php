@@ -416,7 +416,7 @@
                     $validation_code = md5($email . microtime());
 
                     // set cookie for reset password perpose
-                    setcookie('temp_access_code', $validation_code, time() + 60);
+                    setcookie('temp_access_code', $validation_code, time() + 900);
 
                     // update validation code 
                     $sql    = "UPDATE users SET validation_code = '".escapeString($validation_code)."' WHERE email = '".escapeString($email)."' ";
@@ -479,7 +479,8 @@
                         // check user has or not 
                         if(rowCount($result) == 1){
 
-                            redirect("reset.php");
+                            setcookie('temp_access_code', $validation_code, time() + 300);
+                            redirect("reset.php?email={$email}&code={$validation_code}");
 
                         }else {
                             echo validationErrors("Sorry wrong validation code!");
@@ -495,6 +496,18 @@
 
             setMessage('<p class="bg-danger text-center">Sorry your validation cookie was expired.</p>');
             redirect("recover.php");
+
+        }
+
+    }
+
+
+    // Create password reset function 
+    function passwordReset(){
+
+        if(isset($_GET['email']) && isset($_GET['code'])){
+
+            echo 'It is works';
 
         }
 
