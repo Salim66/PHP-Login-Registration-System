@@ -311,7 +311,7 @@
 
             $email      = clean($_POST['email']);
             $password   = clean($_POST['password']);
-            $remember   = clean(isset($_POST['remember']));
+            $remember   = isset($_POST['remember']);
 
             // check email has or not
             if(empty($email)) {
