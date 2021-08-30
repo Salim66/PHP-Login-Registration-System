@@ -365,6 +365,7 @@
 
             if(md5($password) == $db_password){
 
+                $_SESSION['email'] = $email;
                 return true;
 
             }else {
@@ -379,6 +380,20 @@
         }
 
     }
+
+
+    // Create user logged in function
+    function loggedIn(){
+        if(isset($_SESSION['email'])){
+
+            return true;
+
+        }else {
+
+            return false;
+            
+        }
+    } 
 
 
 
