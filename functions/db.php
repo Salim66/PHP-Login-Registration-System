@@ -3,6 +3,11 @@
     // Database connection
     $con = mysqli_connect('localhost', 'root', '', 'login_db');
 
+    // create row count function
+    function rowCount($result){
+        return mysqli_num_rows($result);
+    }
+
     // Create escape string function
     function escapeString($string){
         global $con;
