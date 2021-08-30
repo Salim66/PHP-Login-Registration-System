@@ -203,7 +203,8 @@
                 // call to register user function and pass the parameters
                 if(registerUser($first_name, $last_name, $username, $email, $password)){
                     
-                    echo "User Registered :) ";
+                    setMessage('<p class="bg-success text-center p-3">Please check your email inbox or span folder for activation link.</p>');
+                    redirect("index.php");
 
                 }
 
