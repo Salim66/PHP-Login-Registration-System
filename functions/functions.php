@@ -429,17 +429,46 @@
                     ";
                     $headers    = "From: salimhasanriad@gmail.com";
 
-                    if(sendMail($email, $subject, $message, $headers)){
-
-                    }else {
+                    if(!sendMail($email, $subject, $message, $headers)){
                         echo validationErrors("Email could not be send!");
                     }
+
+                    // when email send successfully
+                    setMessage('<p class="bg-success text-center">Please check your email inbox or span folder for a password reset code.</p>');
+                    redirect("index.php");
 
                 }else {
                     echo validationErrors("This email does not exists!");
                 }
 
             }
+
+        }else {
+            // redirect("index.php");
+        }
+
+    }
+
+
+    // Create code validation function 
+    function validateCode(){
+
+        if(isset($_COOKIE['temp_access_code'])){
+
+            if($_SERVER['REQUEST_METHOD'] == "GET"){
+
+                if(isset($_GET['email']) && isset($_GET['validation_code'])){
+
+
+                    
+                }
+
+            }
+
+        }else {
+
+            setMessage('<p class="bg-success text-center">Sorry your validation cookie was expired.</p>');
+            redirect("recover.php");
 
         }
 
