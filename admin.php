@@ -11,7 +11,7 @@
 			<?php
 			
 				if(loggedIn()){
-					echo "Logged In";
+					echo "Admin";
 				}else {
 					redirect("index.php");
 				}

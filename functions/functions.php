@@ -447,6 +447,11 @@
             // redirect("index.php");
         }
 
+        //  check cancel button 
+        if(isset($_POST['cancel_submit'])){
+            redirect('login.php');
+        }
+
     }
 
 
@@ -527,7 +532,7 @@
                         }else {
 
 
-                            
+
                         }
 
                     }
