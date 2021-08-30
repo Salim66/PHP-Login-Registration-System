@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-	<link rel="stylesheet" href="css/bootstrap.css">
-	<link rel="stylesheet" href="css/styles.css">
-	<script src="js/jquery.js"></script>
-	<script src="js/bootstrap.js"></script>
-	<script src="js/scripts.js"></script>
-</head>
-<body>
+<?php include_once('includes/header.php') ?>
 	
 <div class="container">
 
@@ -58,6 +47,4 @@
 
 
 
-	
-</body>
-</html>
+<?php include_once('includes/footer.php') ?>
