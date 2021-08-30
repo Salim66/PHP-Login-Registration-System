@@ -299,5 +299,50 @@
     } 
 
 
+    // Create validate user login function
+    function validateUserLogin(){
+
+        $errors = [];
+        
+        $min = 3;
+        $max = 20;
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+            $email      = escapeString($_POST['email']);
+            $password   = escapeString($_POST['password']);
+
+            // check email has or not
+            if(empty($email)) {
+                
+                $errors[] = "Email field can not be empty!";
+
+            }
+
+            // check password has or not
+            if(empty($password)){
+
+                $errors[] = "Password field cna not be empty!";
+
+            }
+
+
+            if(!empty($errors)){
+
+                foreach($errors as $error){
+                    echo validationErrors($error);
+                }
+
+            }else {
+
+                echo "No Errors";
+
+            }
+
+        }
+
+    }
+
+
 
 ?>
