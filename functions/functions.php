@@ -65,6 +65,13 @@
 
     }
 
+    // Create send mail function
+    function sendMail($email, $subject, $msg, $headers){
+
+        return mail($email, $subject, $msg, $headers);
+
+    }
+
 
     // Create username exists function, this function check username already database has or not
     function usernameExists($username){
@@ -241,6 +248,15 @@
             $sql .= " VALUES('$first_name', '$last_name', '$username', '$email', '$password', '$validation_code', 0)";
             $result = query($sql);
             confirm($result);
+
+            // mail setup information
+            $subject = "Activate Account";
+            $msg       = "Please click the link below to active your account
+            http://localhost:8080/login/activate.php?email=$email&code=$validation_code
+            ";
+            $headers = "From: salimhasanriad@gmail.com";
+
+            sendMail($email, $subject, $msg, $headers);
 
             return true;
         }
