@@ -272,16 +272,25 @@
             $email           = clean($_GET['email']);
             $validation_code = clean($_GET['code']);
 
+            // find the user
             $sql    = "SELECT * FROM users WHERE email = '".escapeString($_GET['email'])."' AND validation_code = '".$_GET['code']."' ";
             $result = query($sql);
             confirm($result);
 
             if(rowCount($result) == 1){
 
+                // find user activate
+                $sql2    = "UPDATE users SET active = 1, validation_code = 0 WHERE email = '".escapeString($_GET['email'])."' AND validation_code = '".escapeString($_GET['code'])."' ";
+                $result2 = query($sql2);
+                confirm($result2);
+
+                setMessage('<p class="bg-success">Your account has been activated, please login.</p>');
+                redirect('login.php');
 
             }else {
 
-                echo '<p class="bg-success">Your account has been activated, please login.</p>';
+                setMessage('<p class="bg-danger">Sorry your account could not be activated.</p>');
+                redirect('login.php');
 
             }
 
