@@ -1,5 +1,7 @@
 <?php include_once('includes/header.php') ?>
 
+<?php validateCode(); ?>
+
 <div class="container">
 
 	<div class="row">

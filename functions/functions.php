@@ -457,17 +457,43 @@
 
             if($_SERVER['REQUEST_METHOD'] == "GET"){
 
-                if(isset($_GET['email']) && isset($_GET['validation_code'])){
+                if(!isset($_GET['email']) && !isset($_GET['code'])){
 
+                    redirect('index.php');
 
+                }else if(empty($_GET['email']) || empty($_GET['code'])){
+
+                    redirect('index.php');
+                
+                }else {
+
+                    if(isset($_POST['code'])){
                     
+                        $validation_code    = clean($_POST['code']);
+                        $email              = clean($_GET['email']);
+
+                        // find user
+                        $sql    = "SELECT id FROM users WHERE email = '".escapeString($email)."' AND validation_code = '".escapeString($validation_code)."' ";
+                        $result = query($sql);
+
+                        // check user has or not 
+                        if(rowCount($result) == 1){
+
+                            redirect("reset.php");
+
+                        }else {
+                            echo validationErrors("Sorry wrong validation code!");
+                        }
+
+                    }
+
                 }
 
             }
 
         }else {
 
-            setMessage('<p class="bg-success text-center">Sorry your validation cookie was expired.</p>');
+            setMessage('<p class="bg-danger text-center">Sorry your validation cookie was expired.</p>');
             redirect("recover.php");
 
         }
