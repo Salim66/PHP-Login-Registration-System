@@ -1,5 +1,9 @@
 <?php
 
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\PHPMailer;
+
+require '../vendor/autoload.php';
 
     //==================== Create Helper Functions =====================//
 
@@ -68,7 +72,31 @@
     // Create send mail function
     function sendMail($email, $subject, $msg, $headers){
 
-        return mail($email, $subject, $msg, $headers);
+
+        $mail = new PHPMailer();
+        try {
+            $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      
+            $mail->isSMTP();                                            
+            $mail->Host       = 'smtp.mailtrap.io';                     
+            $mail->SMTPAuth   = true;                                   
+            $mail->Username   = 'user@example.com';                     
+            $mail->Password   = 'secret';                              
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            
+            $mail->Port       = 2525;  
+
+            //Content
+            $mail->isHTML(true);                                  
+            $mail->Subject = 'Here is the subject';
+            $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+            $mail->send();
+            echo 'Message has been sent';
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        }
+
+        // return mail($email, $subject, $msg, $headers);
 
     }
 
@@ -174,9 +202,9 @@
             }
 
             // check email more than 20 or not
-            if(strlen($email) > $max){
+            if(strlen($email) < $min){
 
-                $errors[] = "Your email cannot be less than {$max} characters";
+                $errors[] = "Your email cannot be less than {$min} characters";
 
             }
 
@@ -254,7 +282,7 @@
             $msg       = "Please click the link below to active your account
             http://localhost:8080/php-projects/login/activate.php?email=$email&code=$validation_code
             ";
-            $headers = "From: salimhasanriad@gmail.com";
+            $headers = "From: tsd360degree@gmail.com";
 
             sendMail($email, $subject, $msg, $headers);
 
@@ -427,7 +455,7 @@
                     $message    = "Here is your password reset code {$validation_code}
                     Click here to reset your password http://localhost:8080/php-projects/login/code.php?email={$email}&code={$validation_code}
                     ";
-                    $headers    = "From: salimhasanriad@gmail.com";
+                    $headers    = "From: tsd360degree@gmail.com";
 
                     sendMail($email, $subject, $message, $headers);
 
