@@ -1,9 +1,8 @@
 <?php
 
-use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\PHPMailer;
 
-require '../vendor/autoload.php';
+require './vendor/autoload.php';
 
     //==================== Create Helper Functions =====================//
 
@@ -70,19 +69,21 @@ require '../vendor/autoload.php';
     }
 
     // Create send mail function
-    function sendMail($email, $subject, $msg, $headers){
+    function sendMail($email=null, $subject=null, $msg=null, $headers=null){
 
 
         $mail = new PHPMailer();
         try {
-            $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      
-            $mail->isSMTP();                                            
-            $mail->Host       = 'smtp.mailtrap.io';                     
-            $mail->SMTPAuth   = true;                                   
-            $mail->Username   = 'user@example.com';                     
-            $mail->Password   = 'secret';                              
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            
-            $mail->Port       = 2525;  
+            
+            $mail->isSMTP();
+            $mail->Host = 'smtp.mailtrap.io';
+            $mail->SMTPAuth = true;
+            $mail->Port = 2525;
+            $mail->Username = 'c3a07cb7daabcc';
+            $mail->Password = 'a204e9e80f2ad9';
+
+            $mail->setFrom('salimhasanriad@gmail.com', 'Salim Hasan');
+            $mail->addAddress('test@gmail.com', 'Joe User');
 
             //Content
             $mail->isHTML(true);                                  
