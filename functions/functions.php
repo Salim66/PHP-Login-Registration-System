@@ -86,7 +86,8 @@ require './vendor/autoload.php';
             $mail->addAddress($email);
 
             //Content
-            $mail->isHTML(true);                                  
+            $mail->isHTML(true);  
+            $mail->CharSet = 'UTF-8';                                
             $mail->Subject = $subject;
             $mail->Body    = $msg;
             $mail->AltBody = $msg;
