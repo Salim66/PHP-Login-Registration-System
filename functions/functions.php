@@ -270,7 +270,7 @@ require './vendor/autoload.php';
             return false;
         }else {
 
-            $password        = md5($password);
+            $password        = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
             $validation_code = md5($username . microtime());
 
             $sql  = "INSERT INTO users(first_name, last_name, username, email, password, validation_code, active)";
@@ -281,7 +281,7 @@ require './vendor/autoload.php';
             // mail setup information
             $subject = "Activate Account";
             $msg       = "Please click the link below to active your account
-            <a href=\"http://localhost:8080/php-projects/login/activate.php?email=$email&code=$validation_code\">LINK HERE</a>
+            <a href=\"".Config::DEVELOPMENT_URL."/activate.php?email=$email&code=$validation_code\">LINK HERE</a>
             ";
             $headers = "From: salimhasanriad@gmail.com";
 
@@ -393,7 +393,7 @@ require './vendor/autoload.php';
             $row = fetchArray($result);
             $db_password = $row['password'];
 
-            if(md5($password) == $db_password){
+            if(password_verify($password, $db_password)){
 
                 // check remember input checkbox checked or not
                 if($remember == 'on'){
@@ -454,7 +454,7 @@ require './vendor/autoload.php';
 
                     $subject    = "Please reset your password";
                     $message    = "Here is your password reset code <strong>{$validation_code}</strong>
-                    Click here to reset your password <a href=\"http://localhost:8080/php-projects/login/code.php?email={$email}&code={$validation_code}\">LINK HERE</a>
+                    Click here to reset your password <a href=\"".Config::DEVELOPMENT_URL."/code.php?email={$email}&code={$validation_code}\">LINK HERE</a>
                     ";
                     $headers    = "From: salimhasanriad@gmail.com";
 
@@ -547,7 +547,7 @@ require './vendor/autoload.php';
           
                         if($_POST['password'] === $_POST['confirm_password']){
 
-                            $update_password = md5($_POST['password']);
+                            $update_password = password_hash($_POST['password'], PASSWORD_BCRYPT, array('cost' => 12));
 
                             $sql    = "UPDATE users SET password = '".escapeString($update_password)."', validation_code = 0, active = 1 WHERE email = '".escapeString($_GET['email'])."' ";
                             $result = query($sql);
