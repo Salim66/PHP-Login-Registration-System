@@ -69,7 +69,7 @@ require './vendor/autoload.php';
     }
 
     // Create send mail function
-    function sendMail($email=null, $subject=null, $msg=null, $headers=null){
+    function sendMail($email=null, $subject=null, $msg=null, $headers='salimhasanriad@gmail.com'){
 
 
         $mail = new PHPMailer();
@@ -82,8 +82,8 @@ require './vendor/autoload.php';
             $mail->Username = Config::SMTP_USER;
             $mail->Password = Config::SMTP_PASS;
 
-            $mail->setFrom('salimhasanriad@gmail.com', 'Salim Hasan');
-            $mail->addAddress($email, 'Robiyal');
+            $mail->setFrom($headers);
+            $mail->addAddress($email);
 
             //Content
             $mail->isHTML(true);                                  
@@ -281,9 +281,9 @@ require './vendor/autoload.php';
             // mail setup information
             $subject = "Activate Account";
             $msg       = "Please click the link below to active your account
-            http://localhost:8080/php-projects/login/activate.php?email=$email&code=$validation_code
+            <a href=\"http://localhost:8080/php-projects/login/activate.php?email=$email&code=$validation_code\">LINK HERE</a>
             ";
-            $headers = "From: tsd360degree@gmail.com";
+            $headers = "From: salimhasanriad@gmail.com";
 
             sendMail($email, $subject, $msg, $headers);
 
@@ -453,10 +453,10 @@ require './vendor/autoload.php';
                     confirm($result);
 
                     $subject    = "Please reset your password";
-                    $message    = "Here is your password reset code {$validation_code}
-                    Click here to reset your password http://localhost:8080/php-projects/login/code.php?email={$email}&code={$validation_code}
+                    $message    = "Here is your password reset code <strong>{$validation_code}</strong>
+                    Click here to reset your password <a href=\"http://localhost:8080/php-projects/login/code.php?email={$email}&code={$validation_code}\">LINK HERE</a>
                     ";
-                    $headers    = "From: tsd360degree@gmail.com";
+                    $headers    = "From: salimhasanriad@gmail.com";
 
                     sendMail($email, $subject, $message, $headers);
 
@@ -549,7 +549,7 @@ require './vendor/autoload.php';
 
                             $update_password = md5($_POST['password']);
 
-                            $sql    = "UPDATE users SET password = '".escapeString($update_password)."', validation_code = 0 WHERE email = '".escapeString($_GET['email'])."' ";
+                            $sql    = "UPDATE users SET password = '".escapeString($update_password)."', validation_code = 0, active = 1 WHERE email = '".escapeString($_GET['email'])."' ";
                             $result = query($sql);
                             confirm($result);
                             
