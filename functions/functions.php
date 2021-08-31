@@ -429,9 +429,7 @@
                     ";
                     $headers    = "From: salimhasanriad@gmail.com";
 
-                    if(!sendMail($email, $subject, $message, $headers)){
-                        echo validationErrors("Email could not be send!");
-                    }
+                    sendMail($email, $subject, $message, $headers);
 
                     // when email send successfully
                     setMessage('<p class="bg-success text-center">Please check your email inbox or span folder for a password reset code.</p>');
@@ -531,7 +529,7 @@
                          
                         }else {
 
-
+                            echo validationErrors("Password does not match!");
 
                         }
 
