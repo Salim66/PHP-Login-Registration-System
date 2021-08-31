@@ -74,22 +74,22 @@ require './vendor/autoload.php';
 
         $mail = new PHPMailer();
         try {
-            
+
             $mail->isSMTP();
-            $mail->Host = 'smtp.mailtrap.io';
+            $mail->Host = Config::SMTP_HOST;
             $mail->SMTPAuth = true;
-            $mail->Port = 2525;
-            $mail->Username = 'c3a07cb7daabcc';
-            $mail->Password = 'a204e9e80f2ad9';
+            $mail->Port = Config::SMTP_PORT;
+            $mail->Username = Config::SMTP_USER;
+            $mail->Password = Config::SMTP_PASS;
 
             $mail->setFrom('salimhasanriad@gmail.com', 'Salim Hasan');
-            $mail->addAddress('test@gmail.com', 'Joe User');
+            $mail->addAddress($email, 'Robiyal');
 
             //Content
             $mail->isHTML(true);                                  
-            $mail->Subject = 'Here is the subject';
-            $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
-            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+            $mail->Subject = $subject;
+            $mail->Body    = $msg;
+            $mail->AltBody = $msg;
 
             $mail->send();
             echo 'Message has been sent';

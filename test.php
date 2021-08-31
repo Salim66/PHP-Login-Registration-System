@@ -3,4 +3,4 @@
     require './vendor/autoload.php';
     require './functions/functions.php';
 
-    sendMail();
+    sendMail("robiyol@gmail.com", "Testing purpose phpmailer", "Some Messages");
